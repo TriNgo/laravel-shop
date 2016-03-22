@@ -65,5 +65,10 @@ Route::group(['middleware' => ['web']], function () {
 			'uses' => 'CategoriesController@destroy'
 		]);
 
+        Route::get('/menu/add', [
+            'as' => 'getmenu',
+            'uses' => 'MenusController@create'
+        ]);
+
 	});
 });
