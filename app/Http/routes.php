@@ -16,7 +16,6 @@ Route::get('/', function () {
 });
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -31,44 +30,68 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
     //
     Route::group(['prefix' => 'admin'], function () {
-	    Route::get('/', function () {
-		    return view('admin/dashboard');
-		});
-		
-		Route::get('/category', [
-			'as' => 'Categoryindex',
-			'uses' => 'CategoriesController@index'
-		]);
+        Route::get('/', function () {
+            return view('admin/dashboard');
+        });
 
-		Route::get('/category/add', [
-			'as' => 'Categorycreate',
-			'uses' => 'CategoriesController@create'
-		]);
+        Route::get('/category', [
+            'as' => 'Categoryindex',
+            'uses' => 'CategoriesController@index'
+        ]);
 
-		Route::post('/category/postadd', [
-			'as' => 'Categorystore',
-			'uses' => 'CategoriesController@store'
-		]);
+        Route::get('/category/add', [
+            'as' => 'Categorycreate',
+            'uses' => 'CategoriesController@create'
+        ]);
 
-		Route::get('/category/edit/{id}', [
-			'as' => 'Categoryedit',
-			'uses' => 'CategoriesController@edit'
-		]);
+        Route::post('/category/postadd', [
+            'as' => 'Categorystore',
+            'uses' => 'CategoriesController@store'
+        ]);
 
-		Route::post('/category/update/{id}', [
-			'as' => 'Categoryupdate',
-			'uses' => 'CategoriesController@update'
-		]);
+        Route::get('/category/edit/{id}', [
+            'as' => 'Categoryedit',
+            'uses' => 'CategoriesController@edit'
+        ]);
 
-		Route::get('/category/destroy/{id}', [
-			'as' => 'Categorydestroy',
-			'uses' => 'CategoriesController@destroy'
-		]);
+        Route::post('/category/update/{id}', [
+            'as' => 'Categoryupdate',
+            'uses' => 'CategoriesController@update'
+        ]);
+
+        Route::get('/category/destroy/{id}', [
+            'as' => 'Categorydestroy',
+            'uses' => 'CategoriesController@destroy'
+        ]);
+
+        Route::get('/menu', [
+            'as' => 'menuindex',
+            'uses' => 'MenusController@index'
+        ]);
 
         Route::get('/menu/add', [
             'as' => 'getmenu',
             'uses' => 'MenusController@create'
         ]);
 
-	});
+        Route::post('/menu/postadd', [
+            'as' => 'postmenu',
+            'uses' => 'MenusController@store'
+        ]);
+
+        Route::get('/menu/edit/{id}', [
+            'as' => 'editmenu',
+            'uses' => 'MenusController@edit'
+        ]);
+
+        Route::post('/menu/update/{id}', [
+            'as' => 'updatemenu',
+            'uses' => 'MenusController@update'
+        ]);
+
+        Route::get('/menu/destroy/{id}', [
+           'as'=>'destroy',
+            'uses'=>'MenusController@destroy'
+        ]);
+    });
 });

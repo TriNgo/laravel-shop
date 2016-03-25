@@ -2,6 +2,15 @@
 @section('title','Add menus')
 @section('content')
 {!! Form::open(array('url' => '/admin/menu/postadd', 'method' => 'post', 'id' => 'form-add-menu', 'name' => 'form-add-menu','files' => true)) !!}
+@if ( $errors->any() )
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+@endif
 <div class="form-group">
     {!! Form::label('menu_title', 'Name') !!}
     {!! Form::text('title','', array('class' => 'form-control')) !!}
@@ -12,9 +21,12 @@
 </div>
 <div class="form-group">
 {!! Form::label('parent_menu', 'Parent') !!} &nbsp;
-    <select name="parent_name" id="parent_id" class="form-control">
+    <select name="parent_id" id="parent_id" class="form-control">
+    $messages = $validator->errors();
         <option value="0">None</option>
-        <option value="1">a</option>
+        @foreach($menus as $menu)
+        <option value="{{$menu->id}}">{{$menu->title}}</option>
+        @endforeach
     </select>
 </div>
 <div class="form-group">
@@ -27,11 +39,8 @@
     </select>
 </div>
 <div class="form-group">
-    {!! Form::label('status_menu', 'Status') !!}
-    <select name="status" id="menu_status" class="form-control">
-        <option value="1">Enable</option>
-        <option value="0">Disable</option>
-    </select>
+    {!! Form::label('lbl_status', 'Show') !!}
+    {!! Form::checkbox('status', '1', array('checked'=>true)) !!}
 </div>
 {!! Form::submit('Save', array('id'=>'btn-submit', 'class' => 'btn btn-primary')) !!}
 {!! Form::close() !!}
